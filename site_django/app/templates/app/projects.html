@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block button1 %}<button class='glowing-btn'><a href="{% url 'addproj' %}"><span class='glowing-txt'>ADD<span class='faulty-letter'> A</span> PROJECT</span></a></button>{% endblock %}
+{% block button2 %}<button class="button-64" role="button"><span class="text">My projects</span></button>{% endblock %}
+{% block button3 %}<button class="button-64" role="button"><span class="text">My projects</span></button>{% endblock %}
+
+<!--<button class="glow-on-hover" type="button">MY PROJECTS</button>-->
+<!--<button class="glow-on-hover" type="button">ДОБАВИТЬ ПРОЕКТ</button>-->
+{% block proj %}
+        <div class="works">
+            {% for p in posts %}
+            <div class="works__item">
+              {% if p.photo %}
+                <img class="works__photo" src="{{ p.photo.url }}" width="400" height="400">
+              {% endif %}
+                <a href="{{ p.get_absolute_url }}"><div class="works__content">
+                    <div class="works__title">{{ p.title }}</div>
+                    <div class="works__text">
+                        Python
+                    </div>
+                </div></a>
+            </div>
+
+    {% endfor %}
+        </div><!--works-->
+
+
+{% endblock %}

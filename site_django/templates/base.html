@@ -1,0 +1,77 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <script type="text/javascript" src="{% static 'js/file.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'img/log.jpg' %}" type="image/x-icon"/>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+
+<body bgcolor="#22053C">
+
+    <!-- Side navigation -->
+<div class="sidenav">
+
+{% show_categories cat_selected %}
+
+</div>
+
+<!-- Page content -->
+<div class="main">
+
+
+   <!-- header -->
+    <header class="header">
+            <div class="container">
+                <div class="header__inner">
+                    <div class="header__logo">
+                        <img height="100px" width="100px" src="{% static 'img/log.jpg' %}">
+                    </div>
+                    <br>
+                    <nav class="nav">
+                        <a class="nav__link" href="{% url 'home' %}">Главаная страница</a>
+                        <a class="nav__link" href="{% url 'about' %}">О сайте</a>
+                        <a class="nav__link" href="{% url 'projects' %}">Проекты</a>
+                        <a class="nav__link" href="{% url 'register' %}">Регистрация</a>
+                        <a class="nav__link" href="{% url 'login' %}">Войти</a>
+                    </nav>
+                </div>
+                {% block button1 %}{% endblock %}<br>
+                {% block button2 %}{% endblock %}<br>
+                {% block button3 %}{% endblock %}
+            </div>
+        </header>
+
+
+            <!-- intro -->
+	<div class="intro">
+            <div class="container">
+                <div class="intro__inner">
+                    <h1 class="intro__title">{% block content %}{% endblock %}</h1>
+                    <h2 class="intro__subtitle">{% block g %}{% endblock %}</h2>
+                </div>
+            </div>
+        </div>
+
+    <p>{% block desc %}{% endblock %}</p>
+
+
+{% block features %}{% endblock %}
+
+
+    <div class="container">{% block cont %}{% endblock %}</div>
+
+
+    {% block proj %}{% endblock %}<br>{% block head %}{% endblock %}
+
+
+
+</div><!-- end main -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 align="center">{{ title }}</h1>
+{% endblock %}
+{% block g %} Создай свою игру! {% endblock %}
+
+
+{% block features %}<br><br><br>
+
+    <!--Features-->
+        <div class="container">
+            <div class="text1">Лучшие движки для создания первой игры</div>
+            <div class="features">
+                <div class="features__item">
+                    <a href="#"><img height="100px" width="125px" class="features__icon" src="{% static 'img/construct.jpg' %}"></a>
+                    <h4 class="features__title">Construct</h4>
+                </div>
+
+                <div class="features__item">
+                    <a href="#"><img height="100px" width="150px" class="features__icon" src="{% static 'img/gdevelop.jpg' %}"></a>
+                    <h4 class="features__title">GDevelop</h4>
+                </div>
+
+                <div class="features__item">
+                    <a href="#"><img height="100px" width="150px" class="features__icon" src="{% static 'img/Game_mak.jpg' %}"></a>
+                    <h4 class="features__title">GameMaker studio</h4>
+                </div>
+
+                <div class="features__item">
+                    <a href="#"><img height="100px" width="150px" class="features__icon" src="https://i.ytimg.com/vi/Wx4LY1GyTOk/maxresdefault.jpg"></a>
+                    <h4 class="features__title">RPGMaker</h4>
+                </div>
+
+                <div class="features__item">
+                    <a href="#"><img height="100px" width="150px" class="features__icon" src="https://sun6-23.userapi.com/s/v1/ig2/Ov6EtXfrnFhDOUk5BbJfsTQJMw_Gi7oWJcsiDHuKEfTuujjMz8Q3ohzF090mEc4amjCbRA5rGKMsMrK3nJxnjhEb.jpg?size=1080x1080&quality=95&crop=0,0,1080,1080&ava=1"></a>
+                    <h4 class="features__title">Unity</h4>
+                </div>
+
+                <div class="features__item">
+                    <a href="#"><img height="100px" width="150px" class="features__icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Godot_icon.svg/1200px-Godot_icon.svg.png"></a>
+                    <h4 class="features__title">Godot</h4>
+                </div>
+            </div><!--features-->
+        </div><!--container--><br><br><br><br><br><br><br><br>
+
+{% endblock %}
+
+
