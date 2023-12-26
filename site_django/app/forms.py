@@ -19,22 +19,32 @@ class RussianValidator:
             raise ValidationError(self.message, code=self.code)
 
 
-class AddForm(forms.Form):
-    a = forms.IntegerField()
-    title = forms.CharField(max_length=255, label='Название', validators=[RussianValidator()])
-    slug = forms.SlugField(max_length=255, label='URL', validators=[MinLengthValidator(5, message='Минимум 5 символов'),
-                                                                    MaxLengthValidator(100,
-                                                                                       message='Максимум 100 символов')])
-
-    content = forms.CharField(widget=forms.Textarea(), label='Код программы')
-    is_published = forms.BooleanField(label='Опубликовать', initial=True)
+class AddForm(forms.ModelForm):
     cat = forms.ModelChoiceField(queryset=Category.objects.all(), label='Категория', empty_label='Категория не выбрана')
+
+    class Meta:
+        model = Game
+        fields = ['title', 'slug', 'photo', 'content', 'is_published', 'cat']
+        widgets = {
+        'title': forms.TextInput(attrs={'class': 'form-input'}),
+        'content': forms.Textarea(attrs={'col': 50, 'rows': 5}),
+        }
+        labels = {'slug': 'URL'}
 
     def clean_title(self):
         title = self.cleaned_data['title']
-        ALLOWED_CHARS = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890- '
-        if not (set(title) <= set(ALLOWED_CHARS)):
-            raise ValidationError('Должны присутствовать только русские символы, дефис и пробел')
+        if len(title) > 50:
+            raise ValidationError('Длина превышает 50 символов')
+        return title
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField(label='Файл')
+
+
+
+
+
 
 
 

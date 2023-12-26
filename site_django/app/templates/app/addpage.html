@@ -2,7 +2,7 @@
 
 {% block proj %}
 <h1 align="center">{{title}}</h1>
-<div align="center" class="bg-blue"><form method="post">
+<div align="center" class="bg-blue"><form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-error">{{ form.non_field_errors }}</div>
 

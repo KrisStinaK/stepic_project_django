@@ -5,15 +5,15 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', views.GameHome.as_view(), name='home'),
     path('about/', views.about, name='about'),
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('posts/<slug:post_slug>', views.show_post, name='posts'),
     path('projects/', views.projects, name='projects'),
-    path('category/<slug:cat_slug>', views.show_category, name='category'),
+    path('category/<slug:cat_slug>', views.GameCategory.as_view(), name='category'),
     path('tag/<slug:tag_slug>', views.show_tag_postlist, name='tag'),
-    path('addproject/', views.addproject, name='addproj')
+    path('addproject/', views.AddPage.as_view(), name='addproj')
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

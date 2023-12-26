@@ -1,4 +1,5 @@
 from django.contrib import admin, messages
+from django.utils.safestring import mark_safe
 
 from app.models import Game, Category
 
@@ -7,7 +8,7 @@ from app.models import Game, Category
 class GameAdmin(admin.ModelAdmin):
     fields = ['title', 'slug', 'content', 'cat']
     prepopulated_fields = {'slug': ('title',)}
-    list_display = ('title', 'time_create', 'is_published', 'cat', 'info')
+    list_display = ('title', 'post_photo', 'time_create', 'is_published', 'cat')
     list_display_links = ('title', )
     ordering = ['time_create']
 
@@ -18,8 +19,10 @@ class GameAdmin(admin.ModelAdmin):
     list_filter = ['cat__name', 'is_published']
 
     @admin.display(description='Краткое описание', ordering='content')
-    def info(self, game: Game):
-        return f'Описание {len(game.content)} символов.'
+    def post_photo(self, game: Game):
+        if game.photo:
+            return mark_safe(f'<img src="{game.photo.url}" width=50>')
+        return 'Без фото'
 
     @admin.action(description='Опубликовать выбранные записи')
     def set_published(self, request, queryset):
