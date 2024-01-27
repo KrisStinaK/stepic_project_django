@@ -9,11 +9,12 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
-    path('posts/<slug:post_slug>', views.show_post, name='posts'),
+    path('posts/<slug:post_slug>', views.ShowPost.as_view(), name='posts'),
     path('projects/', views.projects, name='projects'),
     path('category/<slug:cat_slug>', views.GameCategory.as_view(), name='category'),
-    path('tag/<slug:tag_slug>', views.show_tag_postlist, name='tag'),
-    path('addproject/', views.AddPage.as_view(), name='addproj')
+    path('addproject/', views.AddPage.as_view(), name='addproj'),
+    path('edit/<int:pk>/', views.UpdatePage.as_view(), name='edit_page'),
+    path('delete/<int:pk>/', views.DeletePage.as_view(), name='delete_page')
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
