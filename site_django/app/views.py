@@ -7,13 +7,7 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, C
 
 from app.forms import AddForm, UploadFileForm
 from app.models import Game, Category, TagPost, UploadFiles
-from app.utils import DataMixin
-
-menu = [{'title': 'Главная страница', 'url_name': 'home'},
-        {'title': 'О сайте', 'url_name': 'about'},
-        {'title': 'Проекты', 'url_name': 'projects'},
-        {'title': 'Регистрация', 'url_name': 'register'},
-        {'title': 'Войти', 'url_name': 'login'}]
+from .utils import *
 
 
 class GameHome(DataMixin, ListView):
@@ -116,17 +110,6 @@ def login(request):
     return render(request, 'app/login.html')
 
 
-# def show_post(request, post_slug):
-#     post = get_object_or_404(Game, slug=post_slug)
-#     data = {
-#         'title': post.title,
-#         'menu': menu,
-#         'post': post,
-#         'cat_selected': 1,
-#     }
-#     return render(request, 'app/post.html', data)
-
-
 class GameCategory(DataMixin, ListView):
     template_name = 'app/projects.html'
     context_object_name = 'posts'
@@ -139,18 +122,6 @@ class GameCategory(DataMixin, ListView):
         context = super().get_context_data(**kwargs)
         cat = context['posts'][0].cat
         return self.get_mixin_context(context, title='Категория - ' + cat.name, cat_selected=cat.pk)
-
-
-# def show_category(request, cat_slug):
-#     category = get_object_or_404(Category, slug=cat_slug)
-#
-#     posts = Game.published.filter(cat_id=category.pk)
-#     data = {
-#         'title': {category.name},
-#         'posts': posts,
-#         'cat_selected': category.pk,
-#     }
-#     return render(request, 'app/projects.html', context=data)
 
 
 def projects(request):
