@@ -1,4 +1,8 @@
-menu = ['О сайте', 'Главная страница', 'Обратная связь', 'Войти']
+menu = [{'title': 'Главная страница', 'url_name': 'home'},
+        {'title': 'О сайте', 'url_name': 'about'},
+        {'title': 'Проекты', 'url_name': 'projects'},
+        {'title': 'Регистрация', 'url_name': 'register'},
+        {'title': 'Войти', 'url_name': 'login'}]
 
 
 class DataMixin:

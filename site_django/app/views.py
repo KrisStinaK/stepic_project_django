@@ -9,7 +9,11 @@ from app.forms import AddForm, UploadFileForm
 from app.models import Game, Category, TagPost, UploadFiles
 from app.utils import DataMixin
 
-menu = ['О сайте', 'Главная страница', 'Обратная связь', 'Войти']
+menu = [{'title': 'Главная страница', 'url_name': 'home'},
+        {'title': 'О сайте', 'url_name': 'about'},
+        {'title': 'Проекты', 'url_name': 'projects'},
+        {'title': 'Регистрация', 'url_name': 'register'},
+        {'title': 'Войти', 'url_name': 'login'}]
 
 
 class GameHome(DataMixin, ListView):
