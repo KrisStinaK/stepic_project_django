@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -26,6 +27,8 @@ class Game(models.Model):
                                                          Status.choices)), default=Status.DRAFT)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT)
     tags = models.ManyToManyField('TagPost', blank=True, related_name='tags')
+
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='projects', null=True, default=None)
 
     objects = models.Manager()
     published = PublishedManager()

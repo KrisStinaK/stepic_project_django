@@ -7,8 +7,6 @@ from . import views
 urlpatterns = [
     path('', views.GameHome.as_view(), name='home'),
     path('about/', views.about, name='about'),
-    path('register/', views.register, name='register'),
-    path('login/', views.login, name='login'),
     path('posts/<slug:post_slug>', views.ShowPost.as_view(), name='posts'),
     path('projects/', views.projects, name='projects'),
     path('category/<slug:cat_slug>', views.GameCategory.as_view(), name='category'),

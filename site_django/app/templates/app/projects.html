@@ -16,7 +16,7 @@
                 <img class="works__photo" src="{{ p.photo.url }}" width="400" height="400">
               {% endif %}
                 <a href="{{ p.get_absolute_url }}"><div class="works__content">
-                    <div class="works__title">{{ p.title }}</div>
+                    <div class="works__title">{{ p.title }} | автор: {{ p.author.username|default:'unknown' }} </div>
                     <div class="works__text">
                         Python
                     </div>

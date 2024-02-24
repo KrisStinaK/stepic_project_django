@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -33,6 +35,7 @@ def handle_uploaded_file(f):
             destination.write(chunk)
 
 
+@login_required(login_url='/admin/')
 def about(request):
     contact_list = Game.objects.all()
     paginator = Paginator(contact_list, 3)
@@ -78,13 +81,18 @@ def about(request):
 #         return super().form_valid(form)
 
 
-class AddPage(CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddForm
     template_name = 'app/addpage.html'
     success_url = reverse_lazy('home')
     title_page = 'Добавление статьи'
     extra_context = {'title': 'Добавление проекта',
                      'menu': menu}
+
+    def form_valid(self, form):
+        w = form.save(commit=False)
+        w.author = self.request.user
+        return super().form_valid(form)
 
 
 class UpdatePage(UpdateView):
@@ -100,14 +108,6 @@ class DeletePage(DeleteView):
     template_name = 'app/addpage.html'
     success_url = reverse_lazy('home')
     title_page = 'Удаление статьи'
-
-
-def register(request):
-    return render(request, 'app/register.html')
-
-
-def login(request):
-    return render(request, 'app/login.html')
 
 
 class GameCategory(DataMixin, ListView):
