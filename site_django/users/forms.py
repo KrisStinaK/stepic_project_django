@@ -29,5 +29,17 @@ class RegisterUserForm(forms.ModelForm):
             'last_name': 'Фамилия',
         }
 
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Пароли не совпадают')
+        return cd['password']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if get_user_model().objects.filter(email=email).exists():
+            raise forms.ValidationError('Такой e-mail уже существует')
+        return email
+
 
 
