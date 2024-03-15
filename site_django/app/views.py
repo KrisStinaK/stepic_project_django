@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -81,13 +81,14 @@ def about(request):
 #         return super().form_valid(form)
 
 
-class AddPage(LoginRequiredMixin, DataMixin, CreateView):
+class AddPage(PermissionRequiredMixin, LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddForm
     template_name = 'app/addpage.html'
     success_url = reverse_lazy('home')
     title_page = 'Добавление статьи'
     extra_context = {'title': 'Добавление проекта',
                      'menu': menu}
+    permission_required = 'women.add_women'
 
     def form_valid(self, form):
         w = form.save(commit=False)

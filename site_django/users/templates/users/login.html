@@ -16,4 +16,11 @@
     <p ><a href="{% url 'users:password_reset' %}">Забыли пароль?</a></p>
 </form>
 
+{% if not perms.users.social_auth %}
+
+<hr>
+<p><a href="{% url 'social:begin' 'github' %}">Авторизоваться через GitHub</a></p>
+
+{% endif %}
+
 {% endblock %}
