@@ -16,7 +16,7 @@ class Game(models.Model):
         PUBLISHED = 1, 'Опубликовано'
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, validators=[
+    slug = models.SlugField(max_length=255,  db_index=True, null=True, validators=[
         MaxLengthValidator(100, message='Максимум 100 символов'), MinLengthValidator(5, message='Минимум 5 символов')])
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', default=None, blank=True,
                               null=True, verbose_name='Фото')

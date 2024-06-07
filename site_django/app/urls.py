@@ -9,6 +9,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('posts/<slug:post_slug>', views.ShowPost.as_view(), name='posts'),
     path('projects/', views.projects, name='projects'),
+    path('contact/', views.ContactFormView.as_view(), name='contact'),
     path('category/<slug:cat_slug>', views.GameCategory.as_view(), name='category'),
     path('addproject/', views.AddPage.as_view(), name='addproj'),
     path('edit/<int:pk>/', views.UpdatePage.as_view(), name='edit_page'),

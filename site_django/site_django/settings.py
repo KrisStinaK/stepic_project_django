@@ -47,16 +47,23 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.cache.UpdateCacheMiddleware",
     'django.middleware.common.CommonMiddleware',
+    "django.middleware.cache.FetchFromCacheMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
 ]
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 10
+CACHE_MIDDLEWARE_KEY_PREFIX = 'gamedevx'
 
 ROOT_URLCONF = 'site_django.urls'
 
@@ -85,13 +92,23 @@ WSGI_APPLICATION = 'site_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test1',
+        'USER': 'gaga',
+        'PASSWORD': '1q2w3e4r5t',
+        'HOST': 'localhost',
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -145,6 +162,7 @@ LOGIN_URL = 'users:login'
 
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.vk.VKOAuth2',
     'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
@@ -164,8 +182,11 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_ADMIN = EMAIL_HOST_USER
 
 SOCIAL_AUTH_GITHUB_KEY = '6501c776cfcef135d75f'
-SOCIAL_AUTH_GITHUB_SECRET = '15b258239655577fef8a0a6e753b144a18c7dc0f'
+SOCIAL_AUTH_GITHUB_SECRET = '54ba4c0349fc7585f0d2773cc7c1c6cf1ddd909f'
 
+SOCIAL_AUTH_VK_OAUTH2_KEY = 'yCRUFq6KpuSNAwXQYsrQ'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = '0cbdc0aa0cbdc0aa0cbdc0aa7d0faa5a8a00cbd0cbdc0aa6948bc9d965bcd1c984464c7'
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 
 AUTH_USER_MODEL = 'users.User'
 DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'

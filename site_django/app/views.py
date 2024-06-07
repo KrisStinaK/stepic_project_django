@@ -7,7 +7,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 
-from app.forms import AddForm, UploadFileForm
+from app.forms import AddForm, UploadFileForm, ContactForm
 from app.models import Game, Category, TagPost, UploadFiles
 from .utils import *
 
@@ -102,6 +102,17 @@ class UpdatePage(UpdateView):
     template_name = 'app/addpage.html'
     success_url = reverse_lazy('home')
     title_page = 'Редактироание статьи'
+
+
+class ContactFormView(LoginRequiredMixin, DataMixin, FormView):
+    form_class = ContactForm
+    template_name = 'woman/contact.html'
+    success_url = reverse_lazy('home')
+    title_page = 'Обратная связь'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(ContactFormView, self).form_valid(form)
 
 
 class DeletePage(DeleteView):

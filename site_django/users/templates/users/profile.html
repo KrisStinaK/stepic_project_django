@@ -14,8 +14,7 @@
     <p ><img src="{{ default_image }}">
     {% endif %}
 
-
-<form method="post">
+    method="post">
     {% csrf_token %}
     <div class="form-error">{{ form.non_field_errors }}</div>
     {% for f in form %}
@@ -26,7 +25,9 @@
     <p ><button type="submit">Сохранить</button></p>
 </form>
 
+{% if not perms.users.social_auth %}
 <hr>
 <p><a href="{% url 'users:password_change' %}">Сменить пароль</a></p>
+{% endif %}
 
 {% endblock %}
